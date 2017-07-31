@@ -9,7 +9,7 @@ class App extends React.Component{
   render() {
     return(
       <div>
-        Hello World from webpack!
+       Webpack is alive and well!
       </div>
     );
   }

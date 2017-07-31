@@ -1,22 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import StockList from './StockList.jsx';
 
-class App extends React.Component{
+class Price extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {
-      stocks: []
-    };
   }
 
   render() {
     return(
       <div>
-        <StockList />
+        This is the price!
       </div>
     );
   }
 };
 
-module.exports = App;
+module.exports = Price;

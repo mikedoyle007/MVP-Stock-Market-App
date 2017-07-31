@@ -4,7 +4,7 @@ const path = require('path');
 
 const app = express();
 
-app.use(express.static(path.join('../public')));
+app.use(express.static(path.join(__dirname + '../static/bundle.js')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

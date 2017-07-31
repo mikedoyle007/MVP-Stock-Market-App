@@ -22434,7 +22434,7 @@ var App = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        'Hello World from webpack!'
+        'Hello hello'
       );
     }
   }]);
@@ -22445,6 +22445,7 @@ var App = function (_React$Component) {
 ;
 
 module.exports = App;
+// export default App;
 
 /***/ })
 /******/ ]);

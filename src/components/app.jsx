@@ -9,10 +9,11 @@ class App extends React.Component{
   render() {
     return(
       <div>
-       Webpack is alive and well!
+        Hello hello
       </div>
     );
   }
 };
 
 module.exports = App;
+// export default App;

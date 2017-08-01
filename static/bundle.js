@@ -23625,6 +23625,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var api_key = 'uz2s6s5WS86ZeASb5qnE';
 var url = 'https://www.quandl.com/api/v3/datasets/WIKI/FB/data.csv?api_key=' + api_key;
 
+// TODO: clear out stocks when finished
+
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -23643,14 +23645,11 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      console.log('COMPONENT DID MOUNT');
-
       // query database
-
-
       _axios2.default.get(url).then(function (_ref) {
         var data = _ref.data;
 
+        //TODO: this should get results from database only
         var price = data.split(',')[20];
         console.log('response is : ', price);
         // this.setState({stocks: ['Facebook', price]});
@@ -23664,6 +23663,7 @@ var App = function (_React$Component) {
       this.setState({
         stockInput: event.target.value
       });
+      //TODO: this should send the user's input as a post request to the server
     }
   }, {
     key: 'render',

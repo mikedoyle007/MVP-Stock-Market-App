@@ -7,6 +7,7 @@ import cors from 'cors';
 const api_key = 'uz2s6s5WS86ZeASb5qnE';
 const url = `https://www.quandl.com/api/v3/datasets/WIKI/FB/data.csv?api_key=${api_key}`;
 
+// TODO: clear out stocks when finished
 class App extends React.Component{
   constructor(props) {
     super(props);
@@ -20,13 +21,10 @@ class App extends React.Component{
   }
 
   componentDidMount() {
-    console.log('COMPONENT DID MOUNT');
-    
     // query database
-
-    
     axios.get(url)
       .then(({ data }) => {
+        //TODO: this should get results from database only
         const price = data.split(',')[20];
         console.log('response is : ', price);
         // this.setState({stocks: ['Facebook', price]});
@@ -40,6 +38,7 @@ class App extends React.Component{
     this.setState({
       stockInput: event.target.value
     });
+    //TODO: this should send the user's input as a post request to the server
   }
 
   render() {

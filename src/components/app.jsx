@@ -11,10 +11,9 @@ class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      stocks: []
+      stocks: [],
+      stockInput: ''
     }
-    this.search = this.search.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -23,32 +22,25 @@ class App extends React.Component{
       .then(({ data }) => {
         const price = data.split(',')[20];
         console.log('response is : ', price);
-        this.setState({stocks: ['Facebook', price]});
+        // this.setState({stocks: ['Facebook', price]});
       })
       .catch((err) => {
         console.log('error retrieving stock information ', err);
       });
-    // use axios to retrieve stocks in database
-    // store in this.state.stocks array using setState
-    // render to StockList component
   }
 
-  search (phrase) {
-    console.log(`${phrase} was searched`);
-  }
-
-  addStock() {
-
+  handleChange (event) {
+    this.setState({
+      stockInput: event.target.value
+    });
   }
 
   render() {
     return(
       <div>
-        <form onSubmit={this.addStock}>
-          <input type="text" placeholder="search stocks"/>
-          <input type="submit" />
-          <StockList stocks={this.state.stocks} />
-        </form>
+        <input placeholder="search stocks" value={this.state.stockInput} onChange={this.handleChange.bind(this)} />
+        <button onClick={this.handleChange.bind(this)} type="submit">Search</button>
+        <StockList stocks={this.state.stocks} />
       </div>
     );
   }

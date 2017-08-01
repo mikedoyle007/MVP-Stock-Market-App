@@ -23634,53 +23634,46 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      stocks: []
+      stocks: [],
+      stockInput: ''
     };
-    _this.search = _this.search.bind(_this);
-    _this.onSubmit = _this.onSubmit.bind(_this);
     return _this;
   }
 
   _createClass(App, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this2 = this;
-
       console.log('COMPONENT DID MOUNT');
       _axios2.default.get(url).then(function (_ref) {
         var data = _ref.data;
 
         var price = data.split(',')[20];
         console.log('response is : ', price);
-        _this2.setState({ stocks: ['Facebook', price] });
+        // this.setState({stocks: ['Facebook', price]});
       }).catch(function (err) {
         console.log('error retrieving stock information ', err);
       });
-      // use axios to retrieve stocks in database
-      // store in this.state.stocks array using setState
-      // render to StockList component
     }
   }, {
-    key: 'search',
-    value: function search(phrase) {
-      console.log(phrase + ' was searched');
+    key: 'handleChange',
+    value: function handleChange(event) {
+      this.setState({
+        stockInput: event.target.value
+      });
     }
-  }, {
-    key: 'addStock',
-    value: function addStock() {}
   }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement('input', { placeholder: 'search stocks', value: this.state.stockInput, onChange: this.handleChange.bind(this) }),
         _react2.default.createElement(
-          'form',
-          { onSubmit: this.addStock },
-          _react2.default.createElement('input', { type: 'text', placeholder: 'search stocks' }),
-          _react2.default.createElement('input', { type: 'submit' }),
-          _react2.default.createElement(_StockList2.default, { stocks: this.state.stocks })
-        )
+          'button',
+          { onClick: this.handleChange.bind(this), type: 'submit' },
+          'Search'
+        ),
+        _react2.default.createElement(_StockList2.default, { stocks: this.state.stocks })
       );
     }
   }]);

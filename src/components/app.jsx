@@ -38,7 +38,12 @@ class App extends React.Component{
       stockInput: event.target.value
     });
     //TODO: this should send the user's input as a post request to the server
-    app.post('/server', (req, res) => {
+    // app.post('/server', (req, res) => {
+      const api_key = 'uz2s6s5WS86ZeASb5qnE';
+      let userInput = this.state.stockInput;
+      console.log('userinput = ', userInput);
+      const url = `https://www.quandl.com/api/v3/datasets/WIKI/${userInput}/data.csv?api_key=${api_key}`;
+
       axios.get(url)
       .then(({ data }) => {
         const name = this.state.stockInput;
@@ -66,7 +71,7 @@ class App extends React.Component{
       .catch((err) => {
         console.log('error retrieving stock information ', err);
       });
-    });
+    // });
   }
 
   render() {

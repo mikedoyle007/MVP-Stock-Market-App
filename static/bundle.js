@@ -23663,33 +23663,38 @@ var App = function (_React$Component) {
         stockInput: event.target.value
       });
       //TODO: this should send the user's input as a post request to the server
-      app.post('/server', function (req, res) {
-        _axios2.default.get(url).then(function (_ref) {
-          var data = _ref.data;
+      // app.post('/server', (req, res) => {
+      var api_key = 'uz2s6s5WS86ZeASb5qnE';
+      var userInput = this.state.stockInput;
+      console.log('userinput = ', userInput);
+      var url = 'https://www.quandl.com/api/v3/datasets/WIKI/' + userInput + '/data.csv?api_key=' + api_key;
 
-          var name = _this2.state.stockInput;
-          var price = data.split(',')[20];
-          var stockList = _this2.state.stocks;
-          stockList.push([name, price]);
+      _axios2.default.get(url).then(function (_ref) {
+        var data = _ref.data;
 
-          _this2.setState({
-            stocks: stockList
-          });
+        var name = _this2.state.stockInput;
+        var price = data.split(',')[20];
+        var stockList = _this2.state.stocks;
+        stockList.push([name, price]);
 
-          var stockEntry = new StockEntry({
-            name: name,
-            price: price
-          }).save(function (err, response) {
-            if (err) {
-              console.log('error inside handle change request to stock api', err);
-            }
-          });
-        }).then(function () {
-          res.send(200);
-        }).catch(function (err) {
-          console.log('error retrieving stock information ', err);
+        _this2.setState({
+          stocks: stockList
         });
+
+        var stockEntry = new StockEntry({
+          name: name,
+          price: price
+        }).save(function (err, response) {
+          if (err) {
+            console.log('error inside handle change request to stock api', err);
+          }
+        });
+      }).then(function () {
+        res.send(200);
+      }).catch(function (err) {
+        console.log('error retrieving stock information ', err);
       });
+      // });
     }
   }, {
     key: 'render',

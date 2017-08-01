@@ -23622,11 +23622,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var api_key = 'uz2s6s5WS86ZeASb5qnE';
-var url = 'https://www.quandl.com/api/v3/datasets/WIKI/FB/data.csv?api_key=' + api_key;
-
 // TODO: clear out stocks when finished
-
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -23642,28 +23638,58 @@ var App = function (_React$Component) {
     return _this;
   }
 
-  _createClass(App, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      // query database
-      _axios2.default.get(url).then(function (_ref) {
-        var data = _ref.data;
+  // componentDidMount() {
+  //   const api_key = 'uz2s6s5WS86ZeASb5qnE';
+  //   const url = `https://www.quandl.com/api/v3/datasets/WIKI/FB/data.csv?api_key=${api_key}`;
+  //   // query database
+  //   axios.get(url)
+  //     .then(({ data }) => {
+  //       //TODO: this should get results from database only
+  //       const price = data.split(',')[20];
+  //       console.log('response is : ', price);
+  //       // this.setState({stocks: ['Facebook', price]});
+  //     })
+  //     .catch((err) => {
+  //       console.log('error retrieving stock information ', err);
+  //     });
+  // }
 
-        //TODO: this should get results from database only
-        var price = data.split(',')[20];
-        console.log('response is : ', price);
-        // this.setState({stocks: ['Facebook', price]});
-      }).catch(function (err) {
-        console.log('error retrieving stock information ', err);
-      });
-    }
-  }, {
+  _createClass(App, [{
     key: 'handleChange',
     value: function handleChange(event) {
+      var _this2 = this;
+
       this.setState({
         stockInput: event.target.value
       });
       //TODO: this should send the user's input as a post request to the server
+      app.post('/server', function (req, res) {
+        _axios2.default.get(url).then(function (_ref) {
+          var data = _ref.data;
+
+          var name = _this2.state.stockInput;
+          var price = data.split(',')[20];
+          var stockList = _this2.state.stocks;
+          stockList.push([name, price]);
+
+          _this2.setState({
+            stocks: stockList
+          });
+
+          var stockEntry = new StockEntry({
+            name: name,
+            price: price
+          }).save(function (err, response) {
+            if (err) {
+              console.log('error inside handle change request to stock api', err);
+            }
+          });
+        }).then(function () {
+          res.send(200);
+        }).catch(function (err) {
+          console.log('error retrieving stock information ', err);
+        });
+      });
     }
   }, {
     key: 'render',

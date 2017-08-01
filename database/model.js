@@ -7,6 +7,6 @@ const stockSchema = mongoose.Schema({
   price: Number
 });
 
-const stock = mongoose.model('stock', stockSchema);
+const StockEntry = mongoose.model('StockEntry', stockSchema);
 
-module.model = stockSchema;
+module.model = StockEntry;

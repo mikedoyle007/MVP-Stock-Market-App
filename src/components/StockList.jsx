@@ -8,6 +8,10 @@ class StockList extends React.Component{
     super(props);
   }
 
+  componentDidMount() {
+    console.log('props that were passed into stocklist are ', this.props);
+  }
+
   render() {
     return(
       <div>

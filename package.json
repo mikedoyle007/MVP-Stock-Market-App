@@ -1,0 +1,37 @@
+{
+  "name": "MVP-Stock-Market-App",
+  "version": "1.0.0",
+  "description": "Stock market app created using the Yahoo Finance API. Project created for MVP project.",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.3",
+    "mongodb": "^2.2.30",
+    "mongoose": "^4.11.5",
+    "path": "^0.12.7",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "webpack": "^3.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikedoyle007/MVP-Stock-Market-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikedoyle007/MVP-Stock-Market-App/issues"
+  },
+  "homepage": "https://github.com/mikedoyle007/MVP-Stock-Market-App#readme"
+}

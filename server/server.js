@@ -8,7 +8,14 @@ app.use(express.static(path.join(__dirname, '../static')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// GET Request
+app.get('/search', (req, res) => {
+  // TODO: request data from server
+  // send response back to client to store and render
+});
+
 // POST Request
+// TODO: save stock and price to database
 app.post('/search', (req, res) => {
   const stock = req.body.name;
   const api_key = 'uz2s6s5WS86ZeASb5qnE';

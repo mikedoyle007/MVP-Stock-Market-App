@@ -39,7 +39,6 @@ class App extends React.Component{
         console.log('ERROR: axios post request sent unsuccessfully to server');
       });
     
-    
     this.setState({
       searchTerm: ''
     });

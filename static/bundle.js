@@ -23639,6 +23639,16 @@ var App = function (_React$Component) {
   }
 
   _createClass(App, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      console.log('COMPONENT DID MOUNT');
+      _axios2.default.get('/search').then(function (response) {
+        console.log('response inside compoenent did mount', response);
+      }).catch(function (err) {
+        console.log('ERROR in component did mount');
+      });
+    }
+  }, {
     key: 'handleChange',
     value: function handleChange(event) {
       this.setState({

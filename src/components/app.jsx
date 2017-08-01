@@ -17,6 +17,17 @@ class App extends React.Component{
     }
   }
 
+  componentDidMount() {
+    console.log('COMPONENT DID MOUNT');
+    axios.get('/search')
+      .then((response) => {
+        console.log('response inside compoenent did mount', response);
+      })
+      .catch((err) => {
+        console.log('ERROR in component did mount');
+      });
+  }
+
   handleChange (event) {
     this.setState({
       searchTerm: event.target.value

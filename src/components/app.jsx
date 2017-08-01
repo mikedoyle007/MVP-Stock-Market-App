@@ -13,7 +13,7 @@ class App extends React.Component{
         ['Facebook', 172],
         ['Apple', 1000]
       ],
-      stockInput: ''
+      searchTerm: ''
     }
   }
 
@@ -35,18 +35,56 @@ class App extends React.Component{
 
   handleChange (event) {
     this.setState({
-      stockInput: event.target.value
+      searchTerm: event.target.value
+    });
+  }
+
+  handleSearch () {
+    console.log('term that was searched', this.state.searchTerm);
+    const term = this.state.searchTerm;
+    axios.post('/search', { name: term })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log('ERROR: axios post request sent unsuccessfully to server');
+      });
+    
+    
+    this.setState({
+      searchTerm: ''
+    });
+  }
+  
+  render() {
+    return(
+      <div>
+        <input placeholder="search stocks" value={this.state.searchTerm} onChange={this.handleChange.bind(this)} />
+        <button onClick={this.handleSearch.bind(this)}>Search</button>
+        <StockList stocks={this.state.stocks} />
+      </div>
+    );
+  }
+};
+
+module.exports = App;
+
+
+/*
+handleChange (event) {
+    this.setState({
+      searchTerm: event.target.value
     });
     //TODO: this should send the user's input as a post request to the server
     // app.post('/server', (req, res) => {
       const api_key = 'uz2s6s5WS86ZeASb5qnE';
-      let userInput = this.state.stockInput;
+      let userInput = this.state.searchTerm;
       console.log('userinput = ', userInput);
       const url = `https://www.quandl.com/api/v3/datasets/WIKI/${userInput}/data.csv?api_key=${api_key}`;
 
       axios.get(url)
       .then(({ data }) => {
-        const name = this.state.stockInput;
+        const name = this.state.searchTerm;
         const price = data.split(',')[20];
         const stockList = this.state.stocks;
         stockList.push([name, price]);
@@ -73,16 +111,4 @@ class App extends React.Component{
       });
     // });
   }
-
-  render() {
-    return(
-      <div>
-        <input placeholder="search stocks" value={this.state.stockInput} onChange={this.handleChange.bind(this)} />
-        <button onClick={this.handleChange.bind(this)} type="submit">Search</button>
-        <StockList stocks={this.state.stocks} />
-      </div>
-    );
-  }
-};
-
-module.exports = App;
+*/

@@ -23633,7 +23633,7 @@ var App = function (_React$Component) {
 
     _this.state = {
       stocks: [['Facebook', 172], ['Apple', 1000]],
-      stockInput: ''
+      searchTerm: ''
     };
     return _this;
   }
@@ -23657,44 +23657,24 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'handleChange',
     value: function handleChange(event) {
-      var _this2 = this;
+      this.setState({
+        searchTerm: event.target.value
+      });
+    }
+  }, {
+    key: 'handleSearch',
+    value: function handleSearch() {
+      console.log('term that was searched', this.state.searchTerm);
+      var term = this.state.searchTerm;
+      _axios2.default.post('/search', { name: term }).then(function (response) {
+        console.log(response);
+      }).catch(function (err) {
+        console.log('ERROR: axios post request sent unsuccessfully to server');
+      });
 
       this.setState({
-        stockInput: event.target.value
+        searchTerm: ''
       });
-      //TODO: this should send the user's input as a post request to the server
-      // app.post('/server', (req, res) => {
-      var api_key = 'uz2s6s5WS86ZeASb5qnE';
-      var userInput = this.state.stockInput;
-      console.log('userinput = ', userInput);
-      var url = 'https://www.quandl.com/api/v3/datasets/WIKI/' + userInput + '/data.csv?api_key=' + api_key;
-
-      _axios2.default.get(url).then(function (_ref) {
-        var data = _ref.data;
-
-        var name = _this2.state.stockInput;
-        var price = data.split(',')[20];
-        var stockList = _this2.state.stocks;
-        stockList.push([name, price]);
-
-        _this2.setState({
-          stocks: stockList
-        });
-
-        var stockEntry = new StockEntry({
-          name: name,
-          price: price
-        }).save(function (err, response) {
-          if (err) {
-            console.log('error inside handle change request to stock api', err);
-          }
-        });
-      }).then(function () {
-        res.send(200);
-      }).catch(function (err) {
-        console.log('error retrieving stock information ', err);
-      });
-      // });
     }
   }, {
     key: 'render',
@@ -23702,10 +23682,10 @@ var App = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement('input', { placeholder: 'search stocks', value: this.state.stockInput, onChange: this.handleChange.bind(this) }),
+        _react2.default.createElement('input', { placeholder: 'search stocks', value: this.state.searchTerm, onChange: this.handleChange.bind(this) }),
         _react2.default.createElement(
           'button',
-          { onClick: this.handleChange.bind(this), type: 'submit' },
+          { onClick: this.handleSearch.bind(this) },
           'Search'
         ),
         _react2.default.createElement(_StockList2.default, { stocks: this.state.stocks })
@@ -23719,6 +23699,49 @@ var App = function (_React$Component) {
 ;
 
 module.exports = App;
+
+/*
+handleChange (event) {
+    this.setState({
+      searchTerm: event.target.value
+    });
+    //TODO: this should send the user's input as a post request to the server
+    // app.post('/server', (req, res) => {
+      const api_key = 'uz2s6s5WS86ZeASb5qnE';
+      let userInput = this.state.searchTerm;
+      console.log('userinput = ', userInput);
+      const url = `https://www.quandl.com/api/v3/datasets/WIKI/${userInput}/data.csv?api_key=${api_key}`;
+
+      axios.get(url)
+      .then(({ data }) => {
+        const name = this.state.searchTerm;
+        const price = data.split(',')[20];
+        const stockList = this.state.stocks;
+        stockList.push([name, price]);
+
+        this.setState({
+          stocks: stockList
+        });
+
+        let stockEntry = new StockEntry({
+          name: name,
+          price: price
+        })
+        .save((err, response) => {
+          if (err) {
+            console.log('error inside handle change request to stock api', err);
+          }
+        });
+      })
+      .then(() => {
+        res.send(200);
+      })
+      .catch((err) => {
+        console.log('error retrieving stock information ', err);
+      });
+    // });
+  }
+*/
 
 /***/ }),
 /* 319 */

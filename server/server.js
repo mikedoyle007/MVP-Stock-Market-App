@@ -8,9 +8,6 @@ app.use(express.static(path.join(__dirname, '../static')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const api_key = 'uz2s6s5WS86ZeASb5qnE';
-const stock = 'GOOG';
-const url = `https://www.quandl.com/api/v3/datasets/WIKI/${stock}/data.csv?api_key=${api_key}`;
 
 // TODO: should handle GET and POST requests
 // 
@@ -20,11 +17,23 @@ const url = `https://www.quandl.com/api/v3/datasets/WIKI/${stock}/data.csv?api_k
 
 // POST Request
 app.post('/search', (req, res) => {
+  // console.log(req.body.name);
+  const stock = req.body.name;
+  const api_key = 'uz2s6s5WS86ZeASb5qnE';
+  // const stock = req.body;
+  const url = `https://www.quandl.com/api/v3/datasets/WIKI/${stock}/data.csv?api_key=${api_key}`;
+
   axios.get(url)
     .then(({ data }) => {
       const price = data.split(',')[20];
-      console.log('response is : ', price);
-      // this.setState({stocks: ['Facebook', price]});
+      console.log('response that was requested : ', price);
+    })
+    .then(() => {
+      console.log('getting ready to send response back to client');
+      res.send({
+        stockName: stock,
+        stockPrice: price
+      })
     })
     .catch((err) => {
       console.log('error retrieving stock information ', err);

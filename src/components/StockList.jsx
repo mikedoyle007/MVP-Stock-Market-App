@@ -18,6 +18,7 @@ class StockList extends React.Component{
         {
           this.props.stocks.map( stock => 
           <div>
+            <br/>
             <Stock stocks={stock} />
             <Price stocks={stock} />
           </div>

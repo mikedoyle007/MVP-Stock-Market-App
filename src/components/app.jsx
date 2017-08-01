@@ -12,7 +12,8 @@ class App extends React.Component{
     super(props);
     this.state = {
       stocks: [
-        ['Facebook', 172]
+        ['Facebook', 172],
+        ['Apple', 1000]
       ],
       stockInput: ''
     }
@@ -20,6 +21,10 @@ class App extends React.Component{
 
   componentDidMount() {
     console.log('COMPONENT DID MOUNT');
+    
+    // query database
+
+    
     axios.get(url)
       .then(({ data }) => {
         const price = data.split(',')[20];

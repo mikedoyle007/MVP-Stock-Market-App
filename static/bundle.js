@@ -23634,7 +23634,7 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      stocks: [['Facebook', 172]],
+      stocks: [['Facebook', 172], ['Apple', 1000]],
       stockInput: ''
     };
     return _this;
@@ -23644,6 +23644,10 @@ var App = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       console.log('COMPONENT DID MOUNT');
+
+      // query database
+
+
       _axios2.default.get(url).then(function (_ref) {
         var data = _ref.data;
 
@@ -23742,6 +23746,7 @@ var StockList = function (_React$Component) {
           return _react2.default.createElement(
             'div',
             null,
+            _react2.default.createElement('br', null),
             _react2.default.createElement(_Stock2.default, { stocks: stock }),
             _react2.default.createElement(_Price2.default, { stocks: stock })
           );

@@ -23664,10 +23664,17 @@ var App = function (_React$Component) {
   }, {
     key: 'handleSearch',
     value: function handleSearch() {
+      var _this2 = this;
+
       console.log('term that was searched', this.state.searchTerm);
       var term = this.state.searchTerm;
       _axios2.default.post('/search', { name: term }).then(function (response) {
-        console.log(response);
+        var newStock = response.data;
+        var savedStocks = _this2.state.stocks;
+        savedStocks.push(newStock);
+        _this2.setState({
+          stocks: savedStocks
+        });
       }).catch(function (err) {
         console.log('ERROR: axios post request sent unsuccessfully to server');
       });

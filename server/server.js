@@ -20,20 +20,19 @@ app.post('/search', (req, res) => {
   // console.log(req.body.name);
   const stock = req.body.name;
   const api_key = 'uz2s6s5WS86ZeASb5qnE';
-  // const stock = req.body;
   const url = `https://www.quandl.com/api/v3/datasets/WIKI/${stock}/data.csv?api_key=${api_key}`;
 
   axios.get(url)
     .then(({ data }) => {
       const price = data.split(',')[20];
       console.log('response that was requested : ', price);
-    })
-    .then(() => {
       console.log('getting ready to send response back to client');
-      res.send({
-        stockName: stock,
-        stockPrice: price
-      })
+      // res.send({
+      //   stockName: stock,
+      //   stockPrice: price
+      // })
+      res.send([stock, price]);
+      console.log('sent response back successfully');
     })
     .catch((err) => {
       console.log('error retrieving stock information ', err);

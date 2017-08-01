@@ -44,7 +44,12 @@ class App extends React.Component{
     const term = this.state.searchTerm;
     axios.post('/search', { name: term })
       .then((response) => {
-        console.log(response);
+        let newStock = response.data;
+        let savedStocks = this.state.stocks;
+        savedStocks.push(newStock);
+        this.setState({
+          stocks: savedStocks
+        });
       })
       .catch((err) => {
         console.log('ERROR: axios post request sent unsuccessfully to server');

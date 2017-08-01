@@ -10,8 +10,8 @@ class App extends React.Component{
     super(props);
     this.state = {
       stocks: [
-        ['Facebook', 172],
-        ['Apple', 1000]
+        // ['Facebook', 172],
+        // ['Apple', 1000]
       ],
       searchTerm: ''
     }

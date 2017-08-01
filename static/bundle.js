@@ -23634,7 +23634,7 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      stocks: [],
+      stocks: [['Facebook', 172]],
       stockInput: ''
     };
     return _this;
@@ -23738,8 +23738,14 @@ var StockList = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_Stock2.default, null),
-        _react2.default.createElement(_Price2.default, null)
+        this.props.stocks.map(function (stock) {
+          return _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(_Stock2.default, { stocks: stock }),
+            _react2.default.createElement(_Price2.default, { stocks: stock })
+          );
+        })
       );
     }
   }]);
@@ -23791,7 +23797,11 @@ var Stock = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        'Stock name!!!!!!!!'
+        _react2.default.createElement(
+          'p',
+          null,
+          this.props.stocks[0]
+        )
       );
     }
   }]);
@@ -23843,7 +23853,12 @@ var Price = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        'This is the price!'
+        _react2.default.createElement(
+          'p',
+          null,
+          '$',
+          this.props.stocks[1]
+        )
       );
     }
   }]);

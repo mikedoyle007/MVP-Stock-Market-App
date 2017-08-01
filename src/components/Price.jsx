@@ -9,7 +9,7 @@ class Price extends React.Component{
   render() {
     return(
       <div>
-        This is the price!
+        <p>${this.props.stocks[1]}</p>
       </div>
     );
   }

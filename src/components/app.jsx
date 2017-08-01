@@ -11,7 +11,9 @@ class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      stocks: [],
+      stocks: [
+        ['Facebook', 172]
+      ],
       stockInput: ''
     }
   }

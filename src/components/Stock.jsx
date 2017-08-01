@@ -9,7 +9,7 @@ class Stock extends React.Component{
   render() {
     return(
       <div>
-        Stock name!!!!!!!!
+        <p>{this.props.stocks[0]}</p>
       </div>
     );
   }

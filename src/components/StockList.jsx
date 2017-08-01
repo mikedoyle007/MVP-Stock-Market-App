@@ -15,8 +15,13 @@ class StockList extends React.Component{
   render() {
     return(
       <div>
-        <Stock />
-        <Price />
+        {
+          this.props.stocks.map( stock => 
+          <div>
+            <Stock stocks={stock} />
+            <Price stocks={stock} />
+          </div>
+        )}
       </div>
     );
   }
